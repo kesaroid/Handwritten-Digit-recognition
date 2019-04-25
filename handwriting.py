@@ -6,7 +6,7 @@ import numpy as np
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, Add
-from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers import Convolution2D, MaxPooling2D, SeparableConv2D
 from keras.utils import np_utils
 
 from keras.datasets import mnist
@@ -38,9 +38,14 @@ from keras.layers import Activation
 model = Sequential()
 
  
-model.add(Convolution2D(32, 3, 3, activation='relu', input_shape=(28,28,1))) #28x28
-model.add(Convolution2D(10, 1, activation='relu')) #26x26
-model.add(Convolution2D(10, 26))
+model.add(Convolution2D(32, 3, 3, activation='relu', input_shape=(28,28,1)))
+model.add(SeparableConv2D(kernel_size=3, filters=32, activation='relu'))
+model.add(MaxPooling2D(pool_size=2, strides=None, padding='valid'))
+model.add(SeparableConv2D(kernel_size=3, filters=64, activation='relu'))
+model.add(SeparableConv2D(kernel_size=3, filters=128, activation='relu'))
+model.add(MaxPooling2D(pool_size=2, strides=None, padding='valid'))
+model.add(Convolution2D(10, 1, activation='relu'))
+model.add(Convolution2D(10, 4))
 model.add(Flatten())
 model.add(Activation('softmax'))
 
