@@ -33,3 +33,5 @@ Trainable params: 15,860
 Non-trainable params: 0
 _________________________________________________________________
 ```
+
+Valdiation Accuracy: 99.23
